@@ -80,11 +80,11 @@ class PatientCrudController extends CrudController
         CRUD::setValidation(PatientRequest::class);
         //first letter in uppercase
         
-        CRUD::field('nom');
-        CRUD::field('prenom');
-        CRUD::field('email');
+        CRUD::field('nom')->label('Nom');
+        CRUD::field('prenom')->label('Prénom');
+        CRUD::field('email')->label('Email');
+        CRUD::field('password')->label('Mot de passe')->type('password');
         CRUD::field('CIN');
-        CRUD::field('password');
         //sexe enum
         CRUD::addField([
             'name' => 'sexe',
@@ -94,9 +94,9 @@ class PatientCrudController extends CrudController
             'allows_null' => false,
             
         ]);
-        CRUD::field('date_naissance');
-        CRUD::field('adresse');
-        CRUD::field('telephone');
+        CRUD::field('date_naissance')->label('Date de naissance');
+        CRUD::field('adresse')->label('Adresse');
+        CRUD::field('telephone')->label('Téléphone');
         CRUD::addField([
             'label' => "Photo",
             'name' => "photo",

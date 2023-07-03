@@ -59,14 +59,14 @@ class Medecin extends Authenticatable
         $this->attributes['password'] = $value;
     }
     }
-    public static function boot()
+   /* public static function boot()
     {
         parent::boot();
         static::deleting(function($obj) {
             \Storage::disk('public')->delete($obj->photo);
         });
-    }
-    public function setPhotoAttribute($value)
+    }*/
+    /*public function setPhotoAttribute($value)
     {
 
         $attribute_name = "photo";
@@ -83,6 +83,6 @@ class Medecin extends Authenticatable
         }
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName);
       
-    }
+    }*/
     
 }

@@ -66,4 +66,8 @@ class Patient extends Authenticatable
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName);
       
     }
+    public function dossierMedical()
+    {
+        return $this->hasOne(DossierMedical::class);
+    }
 }
