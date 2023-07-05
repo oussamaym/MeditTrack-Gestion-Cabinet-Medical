@@ -93,6 +93,7 @@ class MedecinCrudController extends CrudController
             'options' => ['Cardiologue' => 'Cardiologue', 'Dermatologue' => 'Dermatologue', 'Généraliste' => 'Généraliste', 'Gynécologue' => 'Gynécologue', 'Ophtalmologue' => 'Ophtalmologue', 'ORL' => 'ORL', 'Pédiatre' => 'Pédiatre', 'Psychiatre' => 'Psychiatre', 'Radiologue' => 'Radiologue', 'Urologue' => 'Urologue', 'Autre' => 'Autre'],
             'allows_null' => false,
         ]);
+    
         CRUD::addField([
             'label' => "Photo",
             'name' => "photo",

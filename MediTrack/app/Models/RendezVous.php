@@ -10,7 +10,10 @@ class RendezVous extends Model
 {
     use CrudTrait;
     protected $fillable = [ 
-        'date_heureRdv',
+        'date',
+        'jour',
+        'temps',
+        'etat',
         'patient_id',
         'medecin_id',
         'consultation_id',

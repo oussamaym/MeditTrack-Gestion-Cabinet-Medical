@@ -48,5 +48,19 @@ Future<List<dynamic>> getDoctors(String token) async {
   }
   return []; // Return an empty list as a fallback
 }
+Future<dynamic> prendreRDV(String date,String day,String time,int medecin,int patient,String token) async{
+ try{
+  var response = await Dio().post('http://10.0.2.2:8000/api/ajouterRDV',data:{'date':date,'jour':day,'temps':time,'medecin_id':medecin,'patient_id':patient},
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
+
+      if (response.statusCode == 200 && response.data != '') {
+        return response.statusCode;
+      } else {
+        return 'Error';
+      }
+    } catch (error) {
+      return error;
+    }
+  }
 
 }

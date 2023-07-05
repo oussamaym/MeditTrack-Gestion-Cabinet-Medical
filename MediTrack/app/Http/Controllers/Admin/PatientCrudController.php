@@ -33,6 +33,7 @@ class PatientCrudController extends CrudController
         CRUD::setModel(\App\Models\Patient::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/patient');
         CRUD::setEntityNameStrings('patient', 'patients');
+       // $this->crud->setCreateView('PasswordList');
     }
 
     /**
@@ -83,7 +84,9 @@ class PatientCrudController extends CrudController
         CRUD::field('nom')->label('Nom');
         CRUD::field('prenom')->label('Prénom');
         CRUD::field('email')->label('Email');
-        CRUD::field('password')->label('Mot de passe')->type('password');
+        //show password field like normal text
+        CRUD::field('password')->label('Mot de passe')->type('text');
+
         CRUD::field('CIN');
         //sexe enum
         CRUD::addField([

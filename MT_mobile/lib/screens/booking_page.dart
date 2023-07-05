@@ -3,9 +3,11 @@ import 'package:healthcare/components/custom_appbar.dart';
 import 'package:healthcare/main.dart';
 import 'package:healthcare/models/booking_datetime_converted.dart';
 import 'package:healthcare/providers/dio_provider.dart';
+import 'package:healthcare/providers/user_provider.dart';
 import 'package:healthcare/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -44,7 +46,7 @@ class _BookingPageState extends State<BookingPage> {
     final medecin = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: CustomAppBar(
-        appTitle: 'Appointment',
+        appTitle: 'Rendez-vous',
         icon: const FaIcon(Icons.arrow_back_ios),
       ),
       body: CustomScrollView(
@@ -57,7 +59,7 @@ class _BookingPageState extends State<BookingPage> {
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
                   child: Center(
                     child: Text(
-                      'Select Consultation Time',
+                      'Choisissez la date',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -75,7 +77,7 @@ class _BookingPageState extends State<BookingPage> {
                         horizontal: 10, vertical: 30),
                     alignment: Alignment.center,
                     child: const Text(
-                      'Weekend is not available, please select another date',
+                      'Le médecin ne travaille pas le week-end',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -128,17 +130,21 @@ class _BookingPageState extends State<BookingPage> {
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
-              child: Button(
+              child: Consumer<UserProvider>(
+              builder: (context, userProvider, _) {
+                  final user = userProvider.user;
+                return Button(
                 width: double.infinity,
-                title: 'Make Appointment',
-                onPressed: () {},/*async {
+                title: 'Prendre rendez-vous',
+                onPressed: () async {
                   //convert date/day/time into string first
                   final getDate = DateConverted.getDate(_currentDay);
                   final getDay = DateConverted.getDay(_currentDay.weekday);
                   final getTime = DateConverted.getTime(_currentIndex!);
 
-                  final booking = await DioProvider().bookAppointment(
-                      getDate, getDay, getTime, medecin['id'], token!);
+
+                  final booking = await DioProvider().prendreRDV(
+                      getDate, getDay, getTime, medecin['medecin_id'],user['id'], token!);
 
                   //if booking return status code 200, then redirect to success booking page
 
@@ -146,9 +152,11 @@ class _BookingPageState extends State<BookingPage> {
                     MyApp.navigatorKey.currentState!
                         .pushNamed('success_booking');
                   }
-                },*/
+                },
                 disable: _timeSelected && _dateSelected ? false : true,
-              ),
+              );
+  },
+  ),
             ),
           ),
         ],
@@ -161,7 +169,8 @@ class _BookingPageState extends State<BookingPage> {
     return TableCalendar(
       focusedDay: _focusDay,
       firstDay: DateTime.now(),
-      lastDay: DateTime(2023, 12, 31),
+      //last day is after a uear from now
+      lastDay: DateTime.now().add(const Duration(days: 365)),
       calendarFormat: _format,
       currentDay: _currentDay,
       rowHeight: 48,

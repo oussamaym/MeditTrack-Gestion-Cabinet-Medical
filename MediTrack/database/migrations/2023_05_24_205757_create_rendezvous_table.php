@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('RendezVous', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date_heureRdv');
+            $table->string('date');
+            $table->string('jour');
+            $table->string('temps');
+            $table->string('etat');
             $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
             $table->foreignId('medecin_id')->constrained('medecins')->onDelete('cascade');
-            $table->foreignId('consultation_id')->constrained('medecins')->onDelete('cascade');
+            $table->foreignId('consultation_id')->constrained('consultations')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

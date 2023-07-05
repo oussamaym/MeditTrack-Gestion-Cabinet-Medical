@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\RendezVousRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\RendezVous; 
 
 /**
  * Class RendezVousCrudController
@@ -39,9 +42,12 @@ class RendezVousCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('date_heureRdv');
+        CRUD::column('date');
+        CRUD::column('jour');
+        CRUD::column('temps');
         CRUD::column('patient_id');
         CRUD::column('medecin_id');
+        CRUD::column('etat');
         CRUD::column('consultation_id');
 
         /**
@@ -50,8 +56,22 @@ class RendezVousCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
     }
-
-    /**
+     public function store(Request $request)
+     {
+         
+            $rendezvous = new RendezVous();
+            $rendezvous->patient_id = $request->get('patient_id');
+            $rendezvous->medecin_id = $request->get('medecin_id');
+            $rendezvous->consultation_id = '0';
+            $rendezvous->date= $request->get('date');
+            $rendezvous->jour= $request->get('jour');
+            $rendezvous->temps= $request->get('temps');
+            $rendezvous->etat= 'A venir';
+            
+            $rendezvous->save();
+            return response()->json([
+                'success' => 'Un nouveau rendez-vous a ete ajoute avec succès!'], 200);
+     }     /**
      * Define what happens when the Create operation is loaded.
      * 
      * @see https://backpackforlaravel.com/docs/crud-operation-create
@@ -61,9 +81,20 @@ class RendezVousCrudController extends CrudController
     {
         CRUD::setValidation(RendezVousRequest::class);
 
-        CRUD::field('date_heureRdv');
+        CRUD::field('date');
+        CRUD::field('jour');
+        CRUD::field('temps');
         CRUD::field('patient_id');
         CRUD::field('medecin_id');
+        //etat enum
+        CRUD::addField([
+            'name' => 'etat',
+            'label' => 'Etat',
+            'type' => 'select_from_array',
+            'options' => ['A Venir' => 'A Venir', 'Confirme' => 'Confirme', 'Annule' => 'Annule','Non Confirme' => 'Non Confirme','Effectue' => 'Effectue'],
+            'allows_null' => false,
+        ]);
+    
         CRUD::field('consultation_id');
 
         /**

@@ -2,12 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:healthcare/main.dart';
 import 'package:healthcare/providers/dio_provider.dart';
 import 'package:healthcare/providers/user_provider.dart';
 import 'package:healthcare/screens/appointment_screen.dart';
-import 'package:healthcare/screens/messages_screen.dart';
-import 'package:healthcare/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -322,6 +319,7 @@ class _homeScreenState extends State<homeScreen> {
                   return InkWell(
                  onTap: () {
   Navigator.of(context).pushNamed('booking_page',arguments:{"medecin_id":medecin['id']});
+ 
 },
                     child: Container(
                       margin: EdgeInsets.all(10),

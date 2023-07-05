@@ -1,5 +1,7 @@
 import 'package:healthcare/components/button.dart';
 import 'package:flutter/material.dart';
+import 'package:healthcare/main.dart';
+import 'package:healthcare/widgets/navbar_roots.dart';
 import 'package:lottie/lottie.dart';
 
 class AppointmentBooked extends StatelessWidget {
@@ -14,7 +16,7 @@ class AppointmentBooked extends StatelessWidget {
           children: <Widget>[
             Expanded(
               flex: 3,
-              child: Lottie.asset('assets/success.json'),
+              child: Lottie.asset('images/success.json'),
             ),
             Container(
               width: double.infinity,
@@ -34,7 +36,9 @@ class AppointmentBooked extends StatelessWidget {
               child: Button(
                 width: double.infinity,
                 title: 'Back to Home Page',
-                onPressed: () => Navigator.of(context).pushNamed('main'),
+                onPressed: () => MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
+              builder: (context) => NavBarRoots(),
+            )),
                 disable: false,
               ),
             )
