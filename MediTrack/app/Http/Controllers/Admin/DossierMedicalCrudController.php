@@ -39,6 +39,10 @@ class DossierMedicalCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        if (request()->has('patient_id')) {
+            $patientID = request()->input('patient_id');
+            $this->crud->addClause('where', 'patient_id', '=', $patientID);
+        }
         CRUD::column('description');
         CRUD::addColumn([
             'label' => "Fichier",
@@ -74,7 +78,6 @@ class DossierMedicalCrudController extends CrudController
             'upload' => true,
             'disk' => 'local', 
         ]);
-        CRUD::field('fichier');
         CRUD::field('patient_id');
 
         /**
@@ -83,7 +86,16 @@ class DossierMedicalCrudController extends CrudController
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
     }
-
+    public function createdossier(Request $request)
+    {
+        $dossier = new DossierMedical();
+        $dossier->description = $request->description;
+        $dossier->fichier = $request->fichier;
+        $dossier->patient_id = $request->patient_id;
+        $dossier->save();
+        //return response json success
+        return response()->json(['success'=>'Dossier Medical ajouté avec succès'], 200);
+    }
     /**
      * Define what happens when the Update operation is loaded.
      * 

@@ -24,4 +24,5 @@ Route::group([
     Route::crud('rendez-vous', 'RendezVousCrudController');
     Route::crud('consultation', 'ConsultationCrudController');
     Route::crud('dossier-medical', 'DossierMedicalCrudController');
-}); // this should be the absolute last line of this file
+    Route::get('patient/{id}/dossier', 'PatientCrudController@dossier');
+}); // this should be the absolute last line of this fil
