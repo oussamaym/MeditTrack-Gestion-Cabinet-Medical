@@ -31,6 +31,7 @@ class PatientCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Patient::class);
+        $this->crud->addButtonFromView('line', 'dossier', 'dossier', 'beginning');
         CRUD::setRoute(config('backpack.base.route_prefix') . '/patient');
         CRUD::setEntityNameStrings('patient', 'patients');
     }
@@ -116,6 +117,14 @@ class PatientCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
+    }
+    public function dossier($id)
+    {
+        if (isset($_GET['patient_id'])) {
+            unset($_GET['patient_id']); 
+        }
+    $admin=backpack_url();
+        return redirect($admin.'/dossier-medical?patient_id='.$id);
     }
     public function login(Request $request)
 {

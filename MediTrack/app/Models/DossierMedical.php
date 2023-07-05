@@ -33,7 +33,7 @@ class DossierMedical extends Model
     {
         parent::boot();
         static::deleting(function($obj) {
-            \Storage::disk('public')->delete($obj->photo);
+            \Storage::disk('public')->delete($obj->fichier);
         });
     }
 
@@ -43,8 +43,8 @@ class DossierMedical extends Model
         $attribute_name = "fichier";
         $disk = "public";
         $destination_path = "fichiers/patients";
-        //filename is the last name of the patient with extension
-        $fileName = $this->nom.'.'.$value->getClientOriginalExtension();
+        //filename is the orginal name of the file with extension
+        $fileName = $value->getClientOriginalName();
         if ($value==null) {
             // delete the image from disk
             Storage::delete(Str::replaceFirst('storage/','public/',$this->{$attribute_name}));
