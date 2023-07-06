@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:dio/dio.dart';
 class DioProvider{
@@ -62,5 +64,57 @@ Future<dynamic> prendreRDV(String date,String day,String time,int medecin,int pa
       return error;
     }
   }
+ 
+
+Future<dynamic> ajouterDM(String description, String fichier, File? selectedFile, int patient, String token) async {
+  try {
+    FormData formData = FormData.fromMap({
+      'description': description,
+      'fichier_path': fichier,
+      'patient_id': patient,
+    });
+
+    if (selectedFile != null) {
+      formData.files.add(MapEntry(
+        'fichier',
+        await MultipartFile.fromFile(
+          selectedFile.path,
+          filename: selectedFile.path.split('/').last,
+          contentType: MediaType('application', 'octet-stream'),
+        ),
+      ));
+    }
+
+    var response = await Dio().post(
+      'http://10.0.2.2:8000/api/ajouterDM',
+      data: formData,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+
+    if (response.statusCode == 200 && response.data != '') {
+      // File stored successfully, return the response status code
+      return response.statusCode;
+    } else {
+      return 'Error';
+    }
+  } catch (error) {
+    return error;
+  }
+}
+Future<List<dynamic>> getDossier(int patient,String token) async {
+  try {
+    var dossiers = await Dio().get(
+      'http://10.0.2.2:8000/api/dossier/$patient',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    if (dossiers.statusCode == 200 && dossiers.data != '') {
+      return dossiers.data as List<dynamic>;
+    }
+  } catch (error) {
+    throw error;
+  }
+  return []; // Return an empty list as a fallback
+}
+
 
 }

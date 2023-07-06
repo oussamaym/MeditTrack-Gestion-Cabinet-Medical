@@ -44,9 +44,57 @@ class RendezVousCrudController extends CrudController
     {
         CRUD::column('date');
         CRUD::column('jour');
-        CRUD::column('temps');
-        CRUD::column('patient_id');
-        CRUD::column('medecin_id');
+        CRUD::column('temps')->label('Heure');
+    
+        CRUD::addColumn([
+            'name' => 'nom_p',
+            'type' => 'select',
+            'label' => 'Nom de patient',
+            'entity' => 'patient',
+            'attribute' => 'nom',
+            'model' => "App\Models\patient",
+        ]);
+        CRUD::addColumn([
+            'name' => 'prenom_p',
+            'type' => 'select',
+            'label' => 'Prenom de patient',
+            'entity' => 'patient',
+            'attribute' => 'prenom',
+            'model' => "App\Models\patient",
+        ]);
+        CRUD::addColumn([
+            'name' => 'CIN_p',
+            'type' => 'select',
+            'label' => 'CIN de patient',
+            'entity' => 'patient',
+            'attribute' => 'CIN',
+            'model' => "App\Models\patient",
+        ]);
+        CRUD::addColumn([
+            'name' => 'nom_m',
+            'type' => 'select',
+            'label' => 'Nom de medecin',
+            'entity' => 'medecin',
+            'attribute' => 'nom',
+            'model' => "App\Models\medecin",
+        ]);
+        CRUD::addColumn([
+            'name' => 'prenom_m',
+            'type' => 'select',
+            'label' => 'Prenom de medecin',
+            'entity' => 'medecin',
+            'attribute' => 'prenom',
+            'model' => "App\Models\medecin",
+        ]);
+        CRUD::addColumn([
+            'name' => 'CIN_m',
+            'type' => 'select',
+            'label' => 'CIN de medecin',
+            'entity' => 'medecin',
+            'attribute' => 'CIN',
+            'model' => "App\Models\medecin",
+        ]);
+    
         CRUD::column('etat');
         CRUD::column('consultation_id');
 
@@ -56,6 +104,78 @@ class RendezVousCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
     }
+    //setupshowoperation
+    protected function setupShowOperation()
+{
+    CRUD::column('date');
+    CRUD::column('jour');
+    CRUD::column('temps')->label('Heure');
+    //add label above column
+    CRUD::addColumn([
+        'type' => 'raw',
+        'label' => '',
+    ]);
+
+    CRUD::addColumn([
+        'name' => 'nom_p',
+        'type' => 'select',
+        'label' => 'Nom de patient',
+        'entity' => 'patient',
+        'attribute' => 'nom',
+        'model' => "App\Models\patient",
+    ]);
+    CRUD::addColumn([
+        'name' => 'prenom_p',
+        'type' => 'select',
+        'label' => 'Prenom de patient',
+        'entity' => 'patient',
+        'attribute' => 'prenom',
+        'model' => "App\Models\patient",
+    ]);
+    CRUD::addColumn([
+        'name' => 'CIN_p',
+        'type' => 'select',
+        'label' => 'CIN de patient',
+        'entity' => 'patient',
+        'attribute' => 'CIN',
+        'model' => "App\Models\patient",
+    ]);
+    CRUD::addColumn([
+        'type' => 'raw',
+        'label' => '',
+    ]);
+
+    CRUD::addColumn([
+        'name' => 'nom_m',
+        'type' => 'select',
+        'label' => 'Nom de medecin',
+        'entity' => 'medecin',
+        'attribute' => 'nom',
+        'model' => "App\Models\medecin",
+    ]);
+    CRUD::addColumn([
+        'name' => 'prenom_m',
+        'type' => 'select',
+        'label' => 'Prenom de medecin',
+        'entity' => 'medecin',
+        'attribute' => 'prenom',
+        'model' => "App\Models\medecin",
+    ]);
+    CRUD::addColumn([
+        'name' => 'CIN_m',
+        'type' => 'select',
+        'label' => 'CIN de medecin',
+        'entity' => 'medecin',
+        'attribute' => 'CIN',
+        'model' => "App\Models\medecin",
+    ]);
+    CRUD::addColumn([
+        'type' => 'raw',
+        'label' => '',
+    ]);
+    CRUD::column('etat');
+    CRUD::column('consultation_id');
+}
      public function store(Request $request)
      {
          

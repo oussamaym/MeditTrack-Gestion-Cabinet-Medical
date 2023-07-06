@@ -98,6 +98,7 @@ class _BookingPageState extends State<BookingPage> {
                           });
                         },
                         child: Container(
+                          
                           margin: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -122,7 +123,7 @@ class _BookingPageState extends State<BookingPage> {
                         ),
                       );
                     },
-                    childCount: 8,
+                    childCount: 9,
                   ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4, childAspectRatio: 1.5),

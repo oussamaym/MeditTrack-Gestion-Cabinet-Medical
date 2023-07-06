@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:healthcare/main.dart';
 import 'package:healthcare/providers/dio_provider.dart';
 import 'package:healthcare/providers/user_provider.dart';
 import 'package:healthcare/screens/appointment_screen.dart';
+import 'package:healthcare/screens/dossier_screen.dart';
+import 'package:healthcare/screens/medicalFile_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -145,7 +148,11 @@ class _homeScreenState extends State<homeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
+              builder: (context) => MedicalFileScreen(),
+            ));
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
@@ -176,7 +183,7 @@ class _homeScreenState extends State<homeScreen> {
                           ),
                           SizedBox(height: 30),
                           Text(
-                            "Visite à la clinique",
+                            "Remplir votre dossier",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
@@ -184,18 +191,17 @@ class _homeScreenState extends State<homeScreen> {
                             ),
                           ),
                           SizedBox(height: 5),
-                          Text(
-                            "Prendre un rendez-vous",
-                            style: TextStyle(
-                              color: Colors.white54,
-                            ),
-                          ),
+                          
                         ],
                       ),
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                            MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
+              builder: (context) => DossierScreen(),
+            ));
+                    },
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
@@ -219,14 +225,14 @@ class _homeScreenState extends State<homeScreen> {
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
-                              Icons.home_filled,
+                              Icons.folder_open_rounded,
                               color: Color.fromARGB(248, 12, 155, 143),
-                              size: 35,
+                              size: 37,
                             ),
                           ),
                           SizedBox(height: 30),
                           Text(
-                            "Visite à domicile",
+                            "Voir votre dossier",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -234,12 +240,6 @@ class _homeScreenState extends State<homeScreen> {
                             ),
                           ),
                           SizedBox(height: 5),
-                          Text(
-                            "Appeler un médecin",
-                            style: TextStyle(
-                              color: Colors.black54,
-                            ),
-                          ),
                         ],
                       ),
                     ),

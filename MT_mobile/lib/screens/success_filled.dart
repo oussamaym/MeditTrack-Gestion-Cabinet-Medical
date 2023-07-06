@@ -4,8 +4,8 @@ import 'package:healthcare/main.dart';
 import 'package:healthcare/widgets/navbar_roots.dart';
 import 'package:lottie/lottie.dart';
 
-class AppointmentBooked extends StatelessWidget {
-  const AppointmentBooked({Key? key}) : super(key: key);
+class SucessFilledScreen extends StatelessWidget {
+  const SucessFilledScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class AppointmentBooked extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.center,
               child: const Text(
-                'Rendez-vous réservé avec succès',
+                'Dossier médical créé avec succès',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

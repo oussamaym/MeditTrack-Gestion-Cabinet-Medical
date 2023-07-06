@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->post('/ajouterDM', 'App\Http\Controllers\Admin\DossierMedicalCrudController@createdossier');
 Route::post('/login', 'App\Http\Controllers\Admin\PatientCrudController@login');
 Route::middleware('auth:sanctum')->get('/medecins', 'App\Http\Controllers\Admin\MedecinCrudController@getMedecins');
-//add route for post rendezvous
+Route::middleware('auth:sanctum')->get('/dossier/{id}', 'App\Http\Controllers\Admin\DossierMedicalCrudController@getDossierMedicalByPatientId');
 Route::post('/ajouterRDV', 'App\Http\Controllers\Admin\RendezVousCrudController@store');
 
 //Route::get('/medecins', 'App\Http\Controllers\Admin\MedecinCrudController@getMedecins')->middleware('auth:sanctum');

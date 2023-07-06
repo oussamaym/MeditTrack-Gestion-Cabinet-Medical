@@ -37,7 +37,7 @@ class DossierMedical extends Model
         });
     }
 
-    public function setFichierAttribute($value)
+    /*public function setFichierAttribute($value)
     {
 
         $attribute_name = "fichier";
@@ -54,7 +54,7 @@ class DossierMedical extends Model
         }
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName);
       
-    }
+    }*/
     public function patient()
     {
         return $this->belongsTo(Patient::class);

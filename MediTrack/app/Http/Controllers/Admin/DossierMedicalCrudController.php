@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\DossierMedicalRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Http\Request;
+use App\Models\DossierMedical;
+use Illuminate\Support\Facades\DB;
+//use storage
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class DossierMedicalCrudController
@@ -44,16 +49,17 @@ class DossierMedicalCrudController extends CrudController
             $this->crud->addClause('where', 'patient_id', '=', $patientID);
         }
         CRUD::column('description');
-        CRUD::addColumn([
-            'label' => "Fichier",
-            'name' => "fichier",
-            'type' => 'image',
-            'upload' => true,
-            'disk' => 'local',
-            'width' => '100px',
-            'height' => '150px',
-        ]);
-
+        //type image is file exists and type column otherwise
+        
+            CRUD::addColumn([
+                'label' => "Fichier",
+                'name' => "fichier",
+                'type' => 'image',
+                'upload' => true,
+                'disk' => 'local',
+                'width' => '100px',
+                'height' => '150px',
+            ]);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -87,15 +93,35 @@ class DossierMedicalCrudController extends CrudController
          */
     }
     public function createdossier(Request $request)
-    {
+    { 
+        DB::beginTransaction();
+        try{
         $dossier = new DossierMedical();
         $dossier->description = $request->description;
-        $dossier->fichier = $request->fichier;
         $dossier->patient_id = $request->patient_id;
+        if ($request->hasFile('fichier')) {
+            $originalFileName = $request->file('fichier')->getClientOriginalName();
+            $dossier->fichier = $request->file('fichier')->storeAs($request->fichier_path, $originalFileName, 'public');          
+        } 
+        else {
+            $dossier->fichier = 'Pas de fichier';
+        }
         $dossier->save();
-        //return response json success
-        return response()->json(['success'=>'Dossier Medical ajouté avec succès'], 200);
+        DB::commit();
+        return response()->json(['success' => 'Dossier Medical ajoute avec succes'], 200);
+         }
+        catch(\Exception $e){
+            DB::rollback();
+            return response()->json(['error' => 'Dossier Medical non ajoute'], 500);
+        }       
+    }    
+    //get dossier medical by patient id
+    public function getDossierMedicalByPatientId($id)
+    {
+        $dossierMedical = DossierMedical::where('patient_id', $id)->get();
+        return response()->json(['dossierMedical' => $dossierMedical], 200);
     }
+
     /**
      * Define what happens when the Update operation is loaded.
      * 

@@ -1,29 +1,31 @@
 import 'package:intl/intl.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 //this basically is to convert date/day/time from calendar to string
 class DateConverted {
-  static String getDate(DateTime date) {
-    return DateFormat.yMd().format(date);
+   static String getDate(DateTime date) {
+    initializeDateFormatting('fr_FR', null);
+    final format = DateFormat.yMd('fr_FR');
+    return format.format(date);
   }
 
   static String getDay(int day) {
     switch (day) {
       case 1:
-        return 'Monday';
+        return 'Lundi';
       case 2:
-        return 'Tuesday';
+        return 'Mardi';
       case 3:
-        return 'Wednesday';
+        return 'Mercredi';
       case 4:
-        return 'Thursday';
+        return 'Jeudi';
       case 5:
-        return 'Friday';
+        return 'Vendredi';
       case 6:
-        return 'Saturday';
+        return 'Samedi';
       case 7:
-        return 'Sunday';
+        return 'Dimanche';
       default:
-        return 'Sunday';
+        return 'Dimanche';
     }
   }
 
@@ -45,6 +47,8 @@ class DateConverted {
         return '15:00 PM';
       case 7:
         return '16:00 PM';
+      case 8:
+        return '17:00 PM';
       default:
         return '9:00 AM';
     }
