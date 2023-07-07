@@ -1081,13 +1081,13 @@ window.tinymce.Resource.add("tinymce.plugins.emoticons", {
     category: "people"
   },
   woman_health_worker: {
-    keywords: [ "doctor", "nurse", "therapist", "healthcare", "woman", "human" ],
+    keywords: [ "doctor", "nurse", "therapist", "MediTrack", "woman", "human" ],
     char: "\ud83d\udc69\u200d\u2695\ufe0f",
     fitzpatrick_scale: true,
     category: "people"
   },
   man_health_worker: {
-    keywords: [ "doctor", "nurse", "therapist", "healthcare", "man", "human" ],
+    keywords: [ "doctor", "nurse", "therapist", "MediTrack", "man", "human" ],
     char: "\ud83d\udc68\u200d\u2695\ufe0f",
     fitzpatrick_scale: true,
     category: "people"

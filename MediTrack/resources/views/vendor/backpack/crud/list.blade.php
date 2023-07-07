@@ -119,22 +119,7 @@
             <tbody>
             </tbody>
             <tfoot>
-              <tr>
-                {{-- Table columns --}}
-                @foreach ($crud->columns() as $column)
-                  <th>
-                    {{-- Bulk checkbox --}}
-                    @if($loop->first && $crud->getOperationSetting('bulkActions'))
-                      {!! View::make('crud::columns.inc.bulk_actions_checkbox')->render() !!}
-                    @endif
-                    {!! $column['label'] !!}
-                  </th>
-                @endforeach
-
-                @if ( $crud->buttons()->where('stack', 'line')->count() )
-                  <th>{{ trans('backpack::crud.actions') }}</th>
-                @endif
-              </tr>
+             
             </tfoot>
           </table>
 

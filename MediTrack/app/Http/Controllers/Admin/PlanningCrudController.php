@@ -42,9 +42,23 @@ class PlanningCrudController extends CrudController
         CRUD::column('jours_travail');
         CRUD::column('heure_debut');
         CRUD::column('heure_fin');
-        CRUD::column('medecin_id');
-        //add column rendezvous_id by patient name
-        CRUD::column('rendezvous_id');
+        CRUD::addColumn([
+            'name' => 'nom_m',
+            'type' => 'select',
+            'label' => 'Nom de medecin',
+            'entity' => 'medecin',
+            'attribute' => 'nom',
+            'model' => "App\Models\medecin",
+        ]);
+        CRUD::addColumn([
+            'name' => 'prenom_m',
+            'type' => 'select',
+            'label' => 'Prenom de medecin',
+            'entity' => 'medecin',
+            'attribute' => 'prenom',
+            'model' => "App\Models\medecin",
+        ]);
+       
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -68,7 +82,7 @@ class PlanningCrudController extends CrudController
         CRUD::field('heure_fin');
         CRUD::field('medecin_id');
         //add field rendezvous_id by patient name
-        CRUD::field('rendezvous_id');
+       
 
 
         /**

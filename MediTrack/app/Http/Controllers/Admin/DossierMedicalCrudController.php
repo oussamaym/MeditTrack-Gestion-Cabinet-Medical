@@ -119,7 +119,7 @@ class DossierMedicalCrudController extends CrudController
     public function getDossierMedicalByPatientId($id)
     {
         $dossierMedical = DossierMedical::where('patient_id', $id)->get();
-        return response()->json(['dossierMedical' => $dossierMedical], 200);
+        return $dossierMedical;
     }
 
     /**

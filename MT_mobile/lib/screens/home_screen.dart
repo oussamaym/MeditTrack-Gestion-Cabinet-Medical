@@ -32,15 +32,14 @@ class _homeScreenState extends State<homeScreen> {
     "Perte de goût ou d'odorat",
     "Congestion nasale",
     "Nausées ou vomissements",
-    "Diarrhée",
   ];
 
-  List<String> imgs = [
+  /*List<String> imgs = [
     "doctor1.jpg",
     "doctor2.jpg",
     "doctor3.jpg",
     "doctor4.jpg",
-  ];
+  ];*/
 
   Future<void> getUserData() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -93,7 +92,7 @@ class _homeScreenState extends State<homeScreen> {
       builder: (context, userProvider, _) {
         final user = userProvider.user;
         return SingleChildScrollView(
-          child: user.isEmpty
+          child: (user.isEmpty || medecins.isEmpty)
               ? Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
@@ -199,7 +198,7 @@ class _homeScreenState extends State<homeScreen> {
                   InkWell(
                     onTap: () {
                             MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
-              builder: (context) => DossierScreen(),
+              builder: (context) => PatientMedicalRecordScreen(),
             ));
                     },
                     child: Container(

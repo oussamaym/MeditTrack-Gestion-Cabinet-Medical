@@ -83,7 +83,7 @@ class MedecinCrudController extends CrudController
         CRUD::field('prenom');
         CRUD::field('email');
         CRUD::field('CIN');
-        CRUD::field('password');
+        CRUD::field('password')->label('Mot de passe')->type('text');
         CRUD::field('date_debut');
         //specialite enum
         CRUD::addField([

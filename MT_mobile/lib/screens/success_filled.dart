@@ -22,7 +22,7 @@ class SucessFilledScreen extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.center,
               child: const Text(
-                'Dossier médical créé avec succès',
+                'Dossier médical rempli avec succès',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

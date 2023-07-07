@@ -31,6 +31,7 @@ class Medecin extends Authenticatable
         'password',
         'remember_token',
     ];
+    
 
     /**
      * The attributes that should be cast.
@@ -49,7 +50,14 @@ class Medecin extends Authenticatable
     {
         return $this->hasMany(RendezVous::class);
     }    
-
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class);
+    }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
     public function setPasswordAttribute($value)
     {
     if (!empty($value) && Hash::needsRehash($value)) {
@@ -59,14 +67,14 @@ class Medecin extends Authenticatable
         $this->attributes['password'] = $value;
     }
     }
-   /* public static function boot()
+   public static function boot()
     {
         parent::boot();
         static::deleting(function($obj) {
             \Storage::disk('public')->delete($obj->photo);
         });
-    }*/
-    /*public function setPhotoAttribute($value)
+    }
+    public function setPhotoAttribute($value)
     {
 
         $attribute_name = "photo";
@@ -83,6 +91,7 @@ class Medecin extends Authenticatable
         }
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName);
       
-    }*/
+    }
+
     
 }

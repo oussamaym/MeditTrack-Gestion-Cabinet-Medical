@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('password'); 
             $table->date('date_debut');
             $table->string('specialite');
+            $table->string('photo')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
